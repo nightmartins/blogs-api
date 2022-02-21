@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const { createUser, getUsers } = require('./controllers/userController');
+const { createUser, getUser, getUsers } = require('./controllers/userController');
 const { login } = require('./controllers/loginController');
 const { errorMiddleware } = require('./middlewares/error');
 const { authJWT } = require('./validations/authJWT');
@@ -22,6 +22,7 @@ app.post('/user', createUser);
 
 app.post('/login', login);
 
+app.get('/user/:id', authJWT, getUser);
 app.get('/user', authJWT, getUsers);
 
 app.use(errorMiddleware);

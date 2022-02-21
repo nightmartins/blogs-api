@@ -1,8 +1,5 @@
 const rescue = require('express-rescue');
 const jwt = require('jsonwebtoken');
-// const { authJWT } = require('../validations/authJWT');
-
-
 const { userSchema } = require('../validations/schemas');
 const userService = require('../services/userService');
 
@@ -31,7 +28,15 @@ const getUsers = rescue(async (req, res, _next) => {
   return res.status(200).json(users);
 });
 
+const getUser = rescue(async (req, res, next) => {
+  const { id } = req.params; 
+  const user = await userService.getUser(id);
+  if (user.error) return next(user.error);
+  return res.status(200).json(user);
+});
+
 module.exports = {
   createUser,
   getUsers,
+  getUser,
 };
