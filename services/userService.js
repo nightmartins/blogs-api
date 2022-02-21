@@ -12,6 +12,12 @@ Service construído com a ajuda do aluno Rodolfo Braga.
 Referência: https://github.com/tryber/sd-014-b-project-blogs-api/pull/16
 */
 
+const getUsers = async () => {
+  const allUsers = await User.findAll();
+  return allUsers;
+};
+
 module.exports = {
   createUser,
+  getUsers,
 };

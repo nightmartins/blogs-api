@@ -1,5 +1,7 @@
 const rescue = require('express-rescue');
 const jwt = require('jsonwebtoken');
+// const { authJWT } = require('../validations/authJWT');
+
 
 const { userSchema } = require('../validations/schemas');
 const userService = require('../services/userService');
@@ -24,6 +26,12 @@ Controller construído com a ajuda do aluno Rodolfo Braga.
 Referência: https://github.com/tryber/sd-014-b-project-blogs-api/pull/16
 */
 
+const getUsers = rescue(async (req, res, _next) => { 
+  const users = await userService.getUsers();
+  return res.status(200).json(users);
+});
+
 module.exports = {
   createUser,
+  getUsers,
 };
