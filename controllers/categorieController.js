@@ -19,6 +19,12 @@ const createCategorie = rescue(async (req, res, next) => {
   return res.status(201).json(createdCategorie);
 });
 
+const getCategories = rescue(async (req, res, _next) => { 
+  const categories = await categorieService.getCategories();
+  return res.status(200).json(categories);
+});
+
 module.exports = {
   createCategorie,
+  getCategories,
 };

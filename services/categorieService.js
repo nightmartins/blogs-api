@@ -11,10 +11,10 @@ const createCategorie = async (newCategorie) => {
   return createdCategorie.dataValues;
 };
 
-// const getCategories = async () => {
-//   const allCategories = await Categorie.findAll();
-//   return allCategories;
-// };
+const getCategories = async () => {
+  const allCategories = await Categorie.findAll();
+  return allCategories;
+};
 
 // const getCategorie = async (id) => {
 //   const categorie = await Categorie.findByPk(id);
@@ -24,6 +24,6 @@ const createCategorie = async (newCategorie) => {
 
 module.exports = {
   createCategorie,
-  // getCategories,
+  getCategories,
   // getCategorie,
 };
