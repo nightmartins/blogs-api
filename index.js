@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const { createUser } = require('./controllers/userController');
-
+const { login } = require('./controllers/loginController');
 const { errorMiddleware } = require('./middlewares/error');
 
 const app = express();
@@ -17,5 +17,7 @@ app.get('/', (request, response) => {
 });
 
 app.post('/user', createUser);
+
+app.post('/login', login);
 
 app.use(errorMiddleware);
