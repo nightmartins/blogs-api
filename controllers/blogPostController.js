@@ -43,9 +43,19 @@ const editPost = rescue(async (req, res, next) => {
   return res.status(200).json(editedPost);
 });
 
+const removePost = rescue(async (req, res, next) => {
+  const { id } = req.params;
+
+  const removedPost = await blogPostService.removePost(id, req.user);
+  if (removedPost.error) return next(removedPost.error);
+
+  return res.status(204).end();
+});
+
 module.exports = {
   createPost,
   getPosts,
   getPost,
   editPost,
+  removePost,
 };

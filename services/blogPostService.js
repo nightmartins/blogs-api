@@ -63,7 +63,7 @@ const editPost = async (id, user, post) => {
   if (Object.keys(post).includes('categoryIds')) {
     return { error: { code: 'badRequest', message: 'Categories cannot be edited' } };
   }
-  
+
   await BlogPost.update(post, { where: { id } });
 
   const editedPost = await BlogPost.findOne({
@@ -77,9 +77,24 @@ const editPost = async (id, user, post) => {
   return editedPost;
 };
 
+const removePost = async (id, user) => {
+  const oldPost = await BlogPost.findOne({ where: { id } });
+
+  if (!oldPost) {
+    return { error: { code: 'notFound', message: 'Post does not exist' } };
+  }
+
+  if (oldPost.userId !== user.id) {
+    return { error: { code: 'unauthorized', message: 'Unauthorized user' } };
+  }
+
+  return BlogPost.destroy({ where: { id } });
+};
+
 module.exports = {
   createPost,
   getPosts,
   getPost,
   editPost,
+  removePost,
 };
