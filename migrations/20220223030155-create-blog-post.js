@@ -16,7 +16,8 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
-        references: { model: 'Users', key: 'id' }
+        references: { model: 'Users', key: 'id' },
+        onDelete: 'cascade',
       },
       published: {
         allowNull: false,
@@ -33,5 +34,9 @@ module.exports = {
   }
 };
 
-/* Referência do uso do references: 
-https://pt.stackoverflow.com/questions/432406/associa%C3%A7%C3%B5es-com-node-js-sequelize */
+/*
+Referências:
+Uso do references: https://pt.stackoverflow.com/questions/432406/associa%C3%A7%C3%B5es-com-node-js-sequelize
+
+Corrigir erro 'Cannot delete or update a parent row': https://stackoverflow.com/questions/23128816/sequelize-js-ondelete-cascade-is-not-deleting-records-sequelize
+*/

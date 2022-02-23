@@ -35,8 +35,15 @@ const getUser = rescue(async (req, res, next) => {
   return res.status(200).json(user);
 });
 
+const removeUser = rescue(async (req, res, _next) => {
+  const user = req.user.id;
+  await userService.removeUser(user);
+  return res.status(204).end();
+});
+
 module.exports = {
   createUser,
   getUsers,
   getUser,
+  removeUser,
 };

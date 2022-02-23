@@ -23,8 +23,24 @@ const getUser = async (id) => {
   return user;
 };
 
+const removeUser = async (id) => User.destroy({ where: { id } });
+// const removePost = async (id, user) => {
+//   const oldPost = await BlogPost.findOne({ where: { id } });
+
+//   if (!oldPost) {
+//     return { error: { code: 'notFound', message: 'Post does not exist' } };
+//   }
+
+//   if (oldPost.userId !== user.id) {
+//     return { error: { code: 'unauthorized', message: 'Unauthorized user' } };
+//   }
+
+//   return BlogPost.destroy({ where: { id } });
+// };
+
 module.exports = {
   createUser,
   getUsers,
   getUser,
+  removeUser,
 };

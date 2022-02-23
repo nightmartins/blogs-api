@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const { createUser, getUser, getUsers } = require('./controllers/userController');
+const { createUser, getUser, getUsers, removeUser } = require('./controllers/userController');
 const { login } = require('./controllers/loginController');
 const { createCategory, getCategories } = require('./controllers/categoryController');
 const {
@@ -29,6 +29,7 @@ app.get('/', (request, response) => {
 app.post('/user', createUser);
 app.get('/user/:id', authJWT, getUser);
 app.get('/user', authJWT, getUsers);
+app.delete('/user/me', authJWT, removeUser);
 
 // login
 app.post('/login', login);
