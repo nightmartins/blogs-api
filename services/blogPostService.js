@@ -35,7 +35,25 @@ const getPosts = async () => {
 return allPosts;
 };
 
+const getPost = async (id) => {
+  const post = await BlogPost.findOne({
+    where: { id },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories' },
+    ],
+  });
+
+  if (!post) return { error: { code: 'notFound', message: 'Post does not exist' } };
+
+  return post;
+};
+/*
+Referência onde entendi como buscar corretamente com o método findOne:
+https://github.com/tryber/sd-014-b-project-blogs-api/pull/16 */
+
 module.exports = {
   createPost,
   getPosts,
+  getPost,
 };

@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const { createUser, getUser, getUsers } = require('./controllers/userController');
 const { login } = require('./controllers/loginController');
 const { createCategory, getCategories } = require('./controllers/categoryController');
-const { createPost, getPosts } = require('./controllers/blogPostController');
+const { createPost, getPosts, getPost } = require('./controllers/blogPostController');
 const { errorMiddleware } = require('./middlewares/error');
 const { authJWT } = require('./validations/authJWT');
 
@@ -28,5 +28,6 @@ app.get('/categories', authJWT, getCategories);
 app.get('/user/:id', authJWT, getUser);
 app.get('/user', authJWT, getUsers);
 app.get('/post', authJWT, getPosts);
+app.get('/post/:id', authJWT, getPost);
 
 app.use(errorMiddleware);

@@ -20,7 +20,17 @@ const getPosts = rescue(async (req, res, _next) => {
   return res.status(200).json(posts);
 });
 
+const getPost = rescue(async (req, res, next) => {
+  const { id } = req.params;
+  const post = await blogPostService.getPost(id);
+
+  if (post.error) return next(post.error);
+
+  return res.status(200).json(post);
+});
+
 module.exports = {
   createPost,
   getPosts,
+  getPost,
 };
