@@ -22,11 +22,18 @@ const blogPostSchema = Joi.object({
   content: Joi.string().required(),
 });
 
+const editPostSchema = Joi.object({
+  title: Joi.string().required(),
+  categoryIds: Joi.array(),
+  content: Joi.string().required(),
+});
+
 module.exports = {
   userSchema,
   loginSchema,
   categorySchema,
   blogPostSchema,
+  editPostSchema,
 };
 
 /*

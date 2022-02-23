@@ -1,6 +1,6 @@
 const rescue = require('express-rescue');
 // const jwt = require('jsonwebtoken');
-const { blogPostSchema } = require('../validations/schemas');
+const { blogPostSchema, editPostSchema } = require('../validations/schemas');
 const blogPostService = require('../services/blogPostService');
 
 const createPost = rescue(async (req, res, next) => {
@@ -29,8 +29,23 @@ const getPost = rescue(async (req, res, next) => {
   return res.status(200).json(post);
 });
 
+const editPost = rescue(async (req, res, next) => {
+  const { id } = req.params;
+  const post = req.body;
+
+  const { error } = editPostSchema.validate(post);
+  if (error) return next(error);
+
+  const editedPost = await blogPostService.editPost(id, req.user, post);
+
+  if (editedPost.error) return next(editedPost.error);
+
+  return res.status(200).json(editedPost);
+});
+
 module.exports = {
   createPost,
   getPosts,
   getPost,
+  editPost,
 };

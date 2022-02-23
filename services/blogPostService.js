@@ -34,6 +34,10 @@ const getPosts = async () => {
 });
 return allPosts;
 };
+/*
+Referência onde entendi como trazer o retorno correto:
+https://github.com/tryber/sd-014-b-project-blogs-api/pull/16
+*/
 
 const getPost = async (id) => {
   const post = await BlogPost.findOne({
@@ -48,12 +52,34 @@ const getPost = async (id) => {
 
   return post;
 };
-/*
-Referência onde entendi como buscar corretamente com o método findOne:
-https://github.com/tryber/sd-014-b-project-blogs-api/pull/16 */
+
+const editPost = async (id, user, post) => {
+  const oldPost = await BlogPost.findOne({ where: { id } });
+
+  if (oldPost.userId !== user.id) {
+    return { error: { code: 'unauthorized', message: 'Unauthorized user' } };
+  }
+
+  if (Object.keys(post).includes('categoryIds')) {
+    return { error: { code: 'badRequest', message: 'Categories cannot be edited' } };
+  }
+  
+  await BlogPost.update(post, { where: { id } });
+
+  const editedPost = await BlogPost.findOne({
+    where: { id },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories' },
+    ],
+  });
+
+  return editedPost;
+};
 
 module.exports = {
   createPost,
   getPosts,
   getPost,
+  editPost,
 };

@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const { createUser, getUser, getUsers } = require('./controllers/userController');
 const { login } = require('./controllers/loginController');
 const { createCategory, getCategories } = require('./controllers/categoryController');
-const { createPost, getPosts, getPost } = require('./controllers/blogPostController');
+const { createPost, getPosts, getPost, editPost } = require('./controllers/blogPostController');
 const { errorMiddleware } = require('./middlewares/error');
 const { authJWT } = require('./validations/authJWT');
 
@@ -19,15 +19,22 @@ app.get('/', (request, response) => {
   response.send();
 });
 
+// user
 app.post('/user', createUser);
-app.post('/login', login);
-app.post('/categories', authJWT, createCategory);
-app.post('/post', authJWT, createPost);
-
-app.get('/categories', authJWT, getCategories);
 app.get('/user/:id', authJWT, getUser);
 app.get('/user', authJWT, getUsers);
-app.get('/post', authJWT, getPosts);
+
+// login
+app.post('/login', login);
+
+// categories
+app.post('/categories', authJWT, createCategory);
+app.get('/categories', authJWT, getCategories);
+
+// post
+app.put('/post/:id', authJWT, editPost);
+app.post('/post', authJWT, createPost);
 app.get('/post/:id', authJWT, getPost);
+app.get('/post', authJWT, getPosts);
 
 app.use(errorMiddleware);
