@@ -5,7 +5,6 @@ const blogPostService = require('../services/blogPostService');
 
 const createPost = rescue(async (req, res, next) => {
   const post = req.body;
-  // const { user } = req.user;
   const { error } = blogPostSchema.validate(post);
   if (error) return next(error);
 
@@ -15,6 +14,13 @@ const createPost = rescue(async (req, res, next) => {
   return res.status(201).json(createdPost);
 });
 
+const getPosts = rescue(async (req, res, _next) => {
+  const posts = await blogPostService.getPosts();
+
+  return res.status(200).json(posts);
+});
+
 module.exports = {
   createPost,
+  getPosts,
 };

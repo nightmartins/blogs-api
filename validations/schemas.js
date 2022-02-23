@@ -12,7 +12,7 @@ const loginSchema = Joi.object({
   password: Joi.string().length(6).required(),
 });
 
-const categorieSchema = Joi.object({
+const categorySchema = Joi.object({
   name: Joi.string().required(),
 });
 
@@ -25,7 +25,7 @@ const blogPostSchema = Joi.object({
 module.exports = {
   userSchema,
   loginSchema,
-  categorieSchema,
+  categorySchema,
   blogPostSchema,
 };
 

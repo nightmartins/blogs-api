@@ -11,7 +11,7 @@
     "express-rescue": "^1.1.31",
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
-    "mysql2": "^2.1.0",
+    "mysql2": "^2.3.3",
     "sequelize": "^6.16.2",
     "shelljs": "0.8.4"
   },

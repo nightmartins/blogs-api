@@ -1,18 +1,18 @@
-const { Categorie } = require('../models');
+const { Category } = require('../models');
 
-const createCategorie = async (newCategorie) => {
+const createCategory = async (newCategory) => {
   // const findCategorie = await Categorie.findOne({ where: { name: newCategorie.name } });
   // console.log(newCategorie);
   // if (findCategorie) {
   //   return { error: { code: 'conflict', message: 'Categorie already registered' } };
   // }
-  const createdCategorie = await Categorie.create(newCategorie);
-  console.log(createdCategorie.dataValues);
-  return createdCategorie.dataValues;
+  const createdCategory = await Category.create(newCategory);
+  console.log(createdCategory.dataValues);
+  return createdCategory.dataValues;
 };
 
 const getCategories = async () => {
-  const allCategories = await Categorie.findAll();
+  const allCategories = await Category.findAll();
   return allCategories;
 };
 
@@ -23,7 +23,7 @@ const getCategories = async () => {
 // };
 
 module.exports = {
-  createCategorie,
+  createCategory,
   getCategories,
   // getCategorie,
 };
