@@ -1,11 +1,11 @@
 const rescue = require('express-rescue');
 // const jwt = require('jsonwebtoken');
-const { categorieSchema } = require('../validations/schemas');
+const { categorySchema } = require('../validations/schemas');
 const categoryService = require('../services/categoryService');
 
 const createCategory = rescue(async (req, res, next) => {
   const category = req.body;
-  const { error } = categorieSchema.validate(category);
+  const { error } = categorySchema.validate(category);
   if (error) return next(error);
 
   const createdCategory = await categoryService.createCategory(category);
